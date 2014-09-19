@@ -15,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 /**
  * Created by ssatelle on 15/09/14.
  */
+@SuppressWarnings("unused")
 public class ProcessingLogins {
-    String authenticationCredentials;
     ResponseEntity returnedMessage;
     JSONHelpers helper;
 
@@ -29,29 +29,21 @@ public class ProcessingLogins {
 
     @Given("an authentication url <url>")
     @Alias("an authentication url $url")
-    public void givenBaseUrl(String url) {
-        Thucydides.getCurrentSession().put("url", url);
+    public void givenAuthenticationUrl(String url) {
+        Thucydides.getCurrentSession().put("authenticationUrl", url);
     }
 
     @When("I authenticate with credentials <credentials>")
     @Alias("I authenticate with credentials $credentials")
-    public void myCredentials(String credentials) {
-        returnedMessage = login.login(credentials, Thucydides.getCurrentSession().get("url").toString());
+    public void authenticate(String credentials) {
+        returnedMessage = login.login(Thucydides.getCurrentSession().get("authenticationUrl").toString(), credentials);
     }
 
-//    @When("I authenticate at this url")
-//    public void authenticateAtUrl() throws JSONException {
-//        returnedMessage = login.login(authenticationCredentials, apiUrl);
-//
-//        System.out.println("d");
-//    }
 
     @Then("I should obtain a JSON AUTH message containing my access_token")
     public void shouldObtainJsonAuthMessage() throws JSONException {
-        assert (returnedMessage.getStatusCode().is2xxSuccessful());
         JSONObject json = helper.getJSON(returnedMessage);
         assert (json.has("access_token"));
         Thucydides.getCurrentSession().put("default_auth_token", json.getString("access_token"));
-        System.out.println("***** AUTH TOKEN=" + Thucydides.getCurrentSession().get("default_auth_token"));
     }
 }
