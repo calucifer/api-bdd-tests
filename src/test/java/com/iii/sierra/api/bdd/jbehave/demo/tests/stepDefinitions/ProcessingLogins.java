@@ -9,18 +9,14 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * Created by ssatelle on 15/09/14.
  */
 public class ProcessingLogins {
-    String apiUrl;
     String authenticationCredentials;
-    String authToken;
     ResponseEntity returnedMessage;
     JSONHelpers helper;
 
@@ -31,17 +27,16 @@ public class ProcessingLogins {
     @Steps
     LoginSteps login;
 
-    @Given("a url <apiUrl>")
-    @Alias("a url $apiUrl")
-    public void givenUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
+    @Given("an authentication url <url>")
+    @Alias("an authentication url $url")
+    public void givenBaseUrl(String url) {
+        Thucydides.getCurrentSession().put("url", url);
     }
 
-    @When("post my credentials <credentials>")
-    @Alias("I authenticate with credentials  $credentials")
+    @When("I authenticate with credentials <credentials>")
+    @Alias("I authenticate with credentials $credentials")
     public void myCredentials(String credentials) {
-        this.authenticationCredentials = credentials;
-        returnedMessage = login.login(authenticationCredentials, apiUrl);
+        returnedMessage = login.login(credentials, Thucydides.getCurrentSession().get("url").toString());
     }
 
 //    @When("I authenticate at this url")
@@ -53,13 +48,10 @@ public class ProcessingLogins {
 
     @Then("I should obtain a JSON AUTH message containing my access_token")
     public void shouldObtainJsonAuthMessage() throws JSONException {
-        try {
-            Properties properties = helper.parse(returnedMessage);
-            Thucydides.getCurrentSession().put("auth_token", properties.getProperty("access_token"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("***** AUTH TOKEN=" + Thucydides.getCurrentSession().get("auth_token"));
-        assert (!returnedMessage.isEmpty());
+        assert (returnedMessage.getStatusCode().is2xxSuccessful());
+        JSONObject json = helper.getJSON(returnedMessage);
+        assert (json.has("access_token"));
+        Thucydides.getCurrentSession().put("default_auth_token", json.getString("access_token"));
+        System.out.println("***** AUTH TOKEN=" + Thucydides.getCurrentSession().get("default_auth_token"));
     }
 }
