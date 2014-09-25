@@ -14,6 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.269</thucydides.version>
         <thucydides.jbehave.version>0.9.268</thucydides.jbehave.version>
+        <project.junit.stories.package>com.iii.sierra.api.bdd.jbehave.demo.tests.stepDefinitions
+        </project.junit.stories.package>
     </properties>
 
     <dependencies>
@@ -139,6 +141,18 @@
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.thucydides.maven.plugin</groupId>
+                <artifactId>maven-thucydides-jbehave-plugin</artifactId>
+                <version>0.9.224-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-sources</goal>
                         </goals>
                     </execution>
                 </executions>
