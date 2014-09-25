@@ -26,7 +26,7 @@ public class RestfulSteps {
     }
 
     @Step("get json object from url={0}")
-    public String getRestObject(String url) {
+    public JSONObject getRestObject(String url) {
         HttpHeaders header = new HttpHeaders();
         String authToken = sessionMap.get("default_auth_token").toString();
 
@@ -38,7 +38,7 @@ public class RestfulSteps {
 
         JSONObject jsonObject = jsonHelpers.getJSON(response);
 
-        return jsonObject.toString();
+        return jsonObject;
     }
 
     @Step("post json object from url={0}")
@@ -54,7 +54,6 @@ public class RestfulSteps {
 
         JSONObject jsonObject = jsonHelpers.getJSON(response);
         jsonObject.toString();
-
 
         return jsonObject.toString();
     }

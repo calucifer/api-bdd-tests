@@ -3,8 +3,11 @@ package com.iii.sierra.api.bdd.jbehave.demo.tests;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
-
-//        private Configuration configuration;
+    @Override
+    public ThucydidesConfigurationBuilder runThucydides() {
+        return super.runThucydides();
+    }
+    //        private Configuration configuration;
 //
 //        public AcceptanceTestSuite() {
 //            super();

@@ -21,17 +21,29 @@ public class LoginSteps extends ScenarioSteps {
     public LoginSteps() {
     }
 
-    @Step("Login to {0} using credentials {1}")
-    public ResponseEntity login(String providedUrl, String providedCredentials) {
+    @Step("Login to {0} using credentials {1} using Post request")
+    public ResponseEntity postLogin(String providedUrl, String providedCredentials) {
         byte[] bytesEncoded = Base64.encodeBase64(providedCredentials.getBytes());
         HttpHeaders header = new HttpHeaders();
-        header.add("Authorization", "Basic " + new String(bytesEncoded ));
+        header.add("Authorization", "Basic " + new String(bytesEncoded));
         header.add("Content-Type", "application/json");
         HttpEntity<String> entity = new HttpEntity<String>("parameters", header);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(providedUrl, HttpMethod.POST, entity, String.class);
+        ResponseEntity ent = restTemplate.exchange(providedUrl, HttpMethod.POST, entity, String.class);
+        return ent;
     }
 
+    @Step("Login to {0} using credentials {1} using Get request")
+    public ResponseEntity getLogin(String providedUrl, String providedCredentials) {
+        byte[] bytesEncoded = Base64.encodeBase64(providedCredentials.getBytes());
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Basic " + new String(bytesEncoded));
+        header.add("Content-Type", "application/json");
+        HttpEntity<String> entity = new HttpEntity<String>("parameters", header);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity ent = restTemplate.exchange(providedUrl, HttpMethod.GET, entity, String.class);
+        return ent;
+    }
 
 
 }
