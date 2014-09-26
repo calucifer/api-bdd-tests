@@ -14,8 +14,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.269</thucydides.version>
         <thucydides.jbehave.version>0.9.268</thucydides.jbehave.version>
-        <project.junit.stories.package>com.iii.sierra.api.bdd.jbehave.demo.tests.stepDefinitions
-        </project.junit.stories.package>
+        <thucydides.maven.plugin.version>0.9.224-SNAPSHOT</thucydides.maven.plugin.version>
+        <webdriver.driver>firefox</webdriver.driver>
+        <project.junit.stories.package>com.iii.sierra.api.bdd.jbehave.demo.tests</project.junit.stories.package>
     </properties>
 
     <dependencies>
@@ -110,6 +111,8 @@
                         <include>**/Test*.java</include>
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
+                        <include>**/tests/*.java</include>
+                        <include>**/SwaggerTests.java</include>
                     </includes>
                 </configuration>
                 <executions>
@@ -148,11 +151,12 @@
             <plugin>
                 <groupId>net.thucydides.maven.plugin</groupId>
                 <artifactId>maven-thucydides-jbehave-plugin</artifactId>
-                <version>0.9.224-SNAPSHOT</version>
+                <version>${thucydides.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate-sources</goal>
+                            <!--<goal>generate-steps</goal>-->
                         </goals>
                     </execution>
                 </executions>
