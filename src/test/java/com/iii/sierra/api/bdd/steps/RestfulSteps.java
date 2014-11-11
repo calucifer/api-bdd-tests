@@ -1,6 +1,6 @@
-package com.iii.sierra.api.bdd.jbehave.demo.tests.steps;
+package com.iii.sierra.api.bdd.steps;
 
-import com.iii.sierra.api.bdd.jbehave.demo.tests.helpers.JSONHelpers;
+import com.iii.sierra.api.bdd.helpers.JSONHelpers;
 import net.thucydides.core.SessionMap;
 import net.thucydides.core.Thucydides;
 import net.thucydides.core.annotations.Step;
@@ -15,24 +15,23 @@ import org.springframework.web.client.RestTemplate;
  * Created by ssatelle on 19/09/14.
  */
 public class RestfulSteps {
-    private SessionMap sessionMap;
+//    private SessionMap sessionMap;
     private RestTemplate restTemplate;
     private JSONHelpers jsonHelpers;
 
     public RestfulSteps() {
-        sessionMap = Thucydides.getCurrentSession();
+//        sessionMap = Thucydides.getCurrentSession();
         restTemplate = new RestTemplate();
         jsonHelpers = new JSONHelpers();
     }
 
     @Step("get json object from url={0}")
-    public JSONObject getRestObject(String url) {
+    public JSONObject getRestObject(String url, String authToken) {
         HttpHeaders header = new HttpHeaders();
-        String authToken = sessionMap.get("default_auth_token").toString();
 
         header.add("Authorization", "Bearer  " + authToken);
         header.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", header);
+        HttpEntity<String> entity = new HttpEntity("parameters", header);
 
         ResponseEntity response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
@@ -42,19 +41,18 @@ public class RestfulSteps {
     }
 
     @Step("post json object from url={0}")
-    public String postRestObject(String url) {
+    public JSONObject postRestObject(String url, String authToken) {
         HttpHeaders header = new HttpHeaders();
-        String authToken = sessionMap.get("default_auth_token").toString();
 
         header.add("Authorization", "Bearer  " + authToken);
         header.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", header);
+        HttpEntity<String> entity = new HttpEntity("parameters", header);
 
         ResponseEntity response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
         JSONObject jsonObject = jsonHelpers.getJSON(response);
         jsonObject.toString();
 
-        return jsonObject.toString();
+        return jsonObject;
     }
 }

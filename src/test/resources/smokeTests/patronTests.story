@@ -4,13 +4,13 @@
 !--
 !--Narrative:
 !--As a user
-!--I want to play with bibs
+!--I want to play with patrons
 !--So that I can ensure that they all work ok
 !--Scenario: Login to the seirra-api site and recieve an auth token
 !--Given a url http://10.0.3.72:8080/api
 !--When I authenticate at /v2/token with credentials III:password
 !--Then I should obtain a JSON AUTH message containing my access_token
-!--
+!--!--
 !--Scenario: login to site and get a list of patrons (limited to 10)
 !--Given a url http://10.0.3.72:8080/api
 !--When I request items from /v2/patrons?limit=10
@@ -19,7 +19,7 @@
 !--
 !--Scenario: login to site and get a particular patron
 !--Given a url http://10.0.3.72:8080/api
-!--When I request items from /v2/patrons/1000001
+!--When I request items from /v2/patrons/1288667
 !--Then I should obtain a list of items like:
 !--{
 !--   "id":1000001

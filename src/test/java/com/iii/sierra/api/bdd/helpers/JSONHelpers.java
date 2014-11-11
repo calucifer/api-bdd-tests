@@ -1,4 +1,4 @@
-package com.iii.sierra.api.bdd.jbehave.demo.tests.helpers;
+package com.iii.sierra.api.bdd.helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;

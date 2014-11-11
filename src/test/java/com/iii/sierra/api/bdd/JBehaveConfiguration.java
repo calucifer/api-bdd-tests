@@ -1,4 +1,4 @@
-package com.iii.sierra.api.bdd.jbehave.demo.tests;
+package com.iii.sierra.api.bdd;
 
 //import net.thucydides.jbehave.ThucydidesJUnitStories;
 //import org.junit.runner.RunWith;

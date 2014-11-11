@@ -1,6 +1,6 @@
-package com.iii.sierra.api.bdd.jbehave.demo.tests.steps;
+package com.iii.sierra.api.bdd.steps;
 
-import com.iii.sierra.api.bdd.jbehave.demo.tests.helpers.JSONHelpers;
+import com.iii.sierra.api.bdd.helpers.JSONHelpers;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.codec.binary.Base64;
@@ -27,7 +27,7 @@ public class LoginSteps extends ScenarioSteps {
         HttpHeaders header = new HttpHeaders();
         header.add("Authorization", "Basic " + new String(bytesEncoded));
         header.add("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", header);
+        HttpEntity<String> entity = new HttpEntity("parameters", header);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity ent = restTemplate.exchange(providedUrl, HttpMethod.POST, entity, String.class);
         return ent;
