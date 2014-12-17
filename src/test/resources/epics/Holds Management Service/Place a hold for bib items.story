@@ -18,11 +18,24 @@ Scenario: I want to place a hold for an item
 Scenario: I now want to check on that item to make sure  I have a hold on it
 @pending
 
-Scenario: I want to release the hold
+Scenario: I want to place a hold for another item
 @pending
 
-Scenario: I want to check that I no longer have a hold on the item
+Scenario: I now want to check on that Patrons holds, make sure I have both items
 @pending
+
+Scenario: I want to release one of the holds
+@pending
+
+Scenario: I want to check that I no longer have a hold on that item
+@pending
+
+Scenario: I want to remove the other hold
+@pending
+
+Scenario: Ensure that my patron now has no holds
+
+
 
 Scenario: I want to place a hold for an item at bib level
 @pending

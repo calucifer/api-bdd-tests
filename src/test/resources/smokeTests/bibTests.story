@@ -13,7 +13,7 @@ Then I should obtain a JSON AUTH message containing my access_token
 
 Scenario: login to site and get a list of bibs
 Given a url https://dev-api.iii.com:443/iii/sierra-api
-When I request items from /v2/bibs?limit=10
+When I request data from /v2/bibs?limit=10
 Then I should obtain a list of items like: {
 "entries": [
   {
@@ -234,7 +234,7 @@ Then I should obtain a list of items like: {
 
 Scenario: login to site and get a particular bib
 Given a url https://dev-api.iii.com:443/iii/sierra-api
-When I request items from /v2/bibs/1000001
+When I request data from /v2/bibs/1000001
 Then I should obtain a list of items like: {
 	id: 1000001,
 	updatedDate: "2009-07-06T15:30:13Z",

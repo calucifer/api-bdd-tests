@@ -17,11 +17,11 @@ Scenario: Login to the seirra-api and query a few patrons
 Given my default url and credentials are defined
 When I authenticate at /v2/token with my default credentials
 Then I should obtain a JSON AUTH message containing my access_token
-When I request items from /v2/patrons/1000007
+When I request data from /v2/patrons/1000007
 Then I should get a response of: {
    "id": 1000007
 }
-When I request items from /v2/patrons/1288667
+When I request data from /v2/patrons/1288667
 Then I should get a response of: {
   "id": 1288667,
   "expirationDate": "2015-12-31",

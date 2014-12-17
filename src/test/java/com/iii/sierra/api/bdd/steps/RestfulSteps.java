@@ -9,18 +9,17 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by ssatelle on 19/09/14.
  */
 public class RestfulSteps {
-//    private SessionMap sessionMap;
     private RestTemplate restTemplate;
     private JSONHelpers jsonHelpers;
 
     public RestfulSteps() {
-//        sessionMap = Thucydides.getCurrentSession();
         restTemplate = new RestTemplate();
         jsonHelpers = new JSONHelpers();
     }
@@ -54,5 +53,18 @@ public class RestfulSteps {
         jsonObject.toString();
 
         return jsonObject;
+    }
+
+    @Step("get http object from url={0}")
+    public ResponseEntity getHttpResponseObject(String url, String authToken) throws HttpClientErrorException {
+        HttpHeaders header = new HttpHeaders();
+
+        header.add("Authorization", "Bearer  " + authToken);
+        header.add("Content-Type", "application/json");
+        HttpEntity<String> entity = new HttpEntity("parameters", header);
+
+        ResponseEntity response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return response;
     }
 }
